@@ -1,0 +1,4 @@
+Django==1.9.2
+MySQL-python
+Pillow
+gunicorn

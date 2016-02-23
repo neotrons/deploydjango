@@ -1,0 +1,46 @@
+upstream proyecto_app_server {
+  #aqui ponemos la ruta del socket que creamos en gunicorn_start
+  server unix:/home/django/proyectoenv/run/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    
+    listen   80;
+    server_name 52.35.27.241; #ip o dominio 
+
+    client_max_body_size 4G;
+    
+    #las rutas del log lo ponemos en el mismo que el log de gunicorn
+    access_log /home/django/proyectoenv/logs/nginx-access.log;
+    error_log /home/django/proyectoenv/logs/nginx-error.log;
+
+    #Aqui los archivo estaticos que te interesan 
+    location /static/ {
+        alias   /home/django/proyecto/static/;
+    }
+    
+    location /media/ {
+        alias   /home/django/proyecto/media/;
+    }
+
+    location / {
+    
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_set_header Host $http_host;
+
+        proxy_redirect off;
+        
+        #aqui va el nombre del upstrean configurado primero
+        if (!-f $request_filename) {
+            proxy_pass http://proyecto_app_server;
+            break;
+        }
+    }
+
+    # Paginas de error hay que crearla en static
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+        root /home/django/proyecto/static;
+    }
+}
