@@ -1,7 +1,10 @@
 Arquitectura:
+============
 Ubuntu 14.04.2 LTS
 Python 2.7.6 
+
 Softarwe:
+==========
 Servidor web: Nginx
 Base de datos: MySQL
 
