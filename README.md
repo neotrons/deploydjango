@@ -70,10 +70,12 @@ touch requirements.txt
 ###Configuración Iniciar y de base de datos:
 
 1. En la primera línea agregamos: 
+	```python
 	# -*- coding: utf-8 -*-
+	```
 
 2. Configuración de Idioma y tiempo:
-
+	```python
 	LANGUAGE_CODE = 'es-PE'
 	TIME_ZONE = 'America/Lima'
 	USE_TZ = False
@@ -88,6 +90,7 @@ touch requirements.txt
 	       'NAME': 'nombrebd',
 	   }
 	}
+	```
 
 ######Nota: para demo puede dejarlo como sqlite si no has creado una base de datos en mysql
 
@@ -119,10 +122,11 @@ Así debe quedar esa sección:
 
 Archivos multimedia (los cargador en el sistema “upload”): Es recomendable que esto estén en otro server si o si pero si lo queremos en el mismo server debe tener esta configuración:
 esto para crear la carpeta media hay otros que le llaman upload ya 
-
+	```python
 	MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 	
 	MEDIA_URL = '/media/’
+	```
 
 El archivo settings.py para esta sección debe quedar asi:
 
