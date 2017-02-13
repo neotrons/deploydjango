@@ -190,7 +190,7 @@ por buena practica tambien agregalo al requirements.txt
 
 En nuestra carpeta del entorno virtual “proyectoenv” ingresamos a bin y creamos el archivo gunicorn_start este archivo va a tener un script de configuración que tu tienes que remplazar por tu carpeta 
 
-	https://gist.github.com/neotrons/25875dd7e82967d549a2
+https://gist.github.com/neotrons/25875dd7e82967d549a2#file-gunicorn_start
 
 Listo una ves creado lo que nos importa ahora es la ruta de nuestro archivo gunicorn_start para este ejemplo seria 			
 
@@ -208,7 +208,7 @@ creamos el archivo de configuración del proyecto
 
 lo abrimos y le agregamos el contenido de supervisor_proyecto.conf de esta url:
 
-	https://gist.github.com/neotrons/25875dd7e82967d549a2
+https://gist.github.com/neotrons/25875dd7e82967d549a2#file-supervisor_proyecto-conf
 
 Luego actualizamos supervisor 
 
@@ -229,7 +229,7 @@ para poder configurar el proyecto es simple creamos un archivo en los site-avaib
 
 Abrimos el archivo /etc/nginx/sites-available/proyecto  y agreamos el contenido de nginx_proyecto.conf de esta url
 
-	https://gist.github.com/neotrons/25875dd7e82967d549a2
+https://gist.github.com/neotrons/25875dd7e82967d549a2#file-nginx_proyecto-conf
 
 como verás para los archivos estáticos  y media en producción se agrego en el archivo las rutas estáticas :
 
