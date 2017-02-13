@@ -19,8 +19,7 @@ sudo su
 
 6. Instalar paquetes de desarrollo de python
 
-	apt-get install python-setuptools python-dev python2.7-dev \
-                                     python-software-properties libpq-dev
+	apt-get install python-setuptools python-dev python2.7-dev python-software-properties libpq-dev
 
 7. Instalar librerias necesarias útiles en cierto paquetes
 
@@ -29,7 +28,8 @@ sudo su
 ###Instalar software necesario:
 
 1. Instalar Mysql y dependencias para desarrollo
-	apt-get install mysql-server mysql-client libmysqlclient-dev
+	apt-get install mysql-server mysql-client
+	apt-get install libmysqlclient-dev
 2. Instalar Nginx
 	apt-get install nginx
 3. Instalar supervisor (ejecutar y monitorear la tarea de gunicorm siempre)
@@ -49,10 +49,9 @@ sudo su
 	virtualenv proyectoenv
 	source proyectoenv/bin/activate
 3. A nivel de proyectoenv  el archivo requirements.txt que contiene las dependencias del proyecto es buena practica esto
-touch requirements.txt 
+	touch requirements.txt 
 
-4. Agregamos los primero requerimientos e instalamos
-	Agregar: 
+4. Agregamos los primero requerimientos e instalamos. Agregar: 
 	Django==1.9.2
 	MySQL-python
 	Pillow
@@ -63,7 +62,7 @@ touch requirements.txt
 6. Iniciar en django: En la carpeta raiz ejecutamos 
 	django-admin startproject proyecto
 	
-	Aquí django crea la carpeta “proyecto” esto porque le pusimos ese nombre tu carpeta base debe quedar así:
+Aquí django crea la carpeta “proyecto” esto porque le pusimos ese nombre tu carpeta base debe quedar así:
 
 	
 
@@ -103,25 +102,30 @@ Template (HTML): Yo recomiendo que se guarden todos en una misma carpeta “temp
 ######Nota: otros recomiendan crearlo dentro de cada app pero a mi me parece desordenado y confuso cuando tienes muchas app es cuestión de gustos.
 
 Para configurar la carpeta “templates” buscamos la variable:
+	```python
 	TEMPLATES = []
+	```
 
 dentro de la lista encontramos a ‘DIRS’ : [] ahi agregamos nuestra ruta quedando asi
+	```python
 	‘DIRS’ : [os.path.join(BASE_DIR ,'templates')]
+	```
 
 static file: Para los archivos estáticos CSS/JS/IMG del proyecto es recomendable que esten ubicados en la raiz del proyecto en la carpeta “static” aqui necesitamos configurar 2 variables si no están las agregamos si estan la modificamos si es necesario:
-
+	```python
 	STATIC_URL = '/static/'
 	#Esta línea de abajo solo en desarrollo  (como ahora estamos en producción no la usamos y la comentamos)
 	STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),) 
 	
 	#esta línea solo en producción (Como ahora estamos en producción usamos esta)
 	STATIC_ROOT = os.path.join(BASE_DIR, "static")
+	```
 
 Así debe quedar esa sección:
 
-
 Archivos multimedia (los cargador en el sistema “upload”): Es recomendable que esto estén en otro server si o si pero si lo queremos en el mismo server debe tener esta configuración:
-esto para crear la carpeta media hay otros que le llaman upload ya 
+esto para crear la carpeta media hay otros que le llaman upload:
+
 	```python
 	MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 	
@@ -131,7 +135,8 @@ esto para crear la carpeta media hay otros que le llaman upload ya
 El archivo settings.py para esta sección debe quedar asi:
 
 Ahora en el archivo url.py dentro de la carpeta de configuración debe quedar asi (lo que esta en negrita he argegado):
-
+	
+	```python
 	from django.conf.urls import url
 	from django.contrib import admin
 	from django.conf import settings
@@ -139,24 +144,28 @@ Ahora en el archivo url.py dentro de la carpeta de configuración debe quedar as
 	urlpatterns = [
 	    url(r'^admin/', admin.site.urls),
 	] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+	```
 
 Demo en producción : Antes de configurar nginx vamo a levantar el admin de django para luego manejar sus archivos estáticos: 
 
 En la carpeta de proyecto donde esta el manage.py corremos el servidor:
-
+	```python
 	python manage.py runserver 0.0.0.0:80
+	```
 
 ######Nota: como verás se abre el server de desarrollo en el puerto 80 si tuvieras algo corriendo en el puerto ochenta ejemplo apache lo apagas y también valida que el puerto 80 está abierto en amazon y por ultimo ten a la mano la ip de amazon en mi caso es http://52.35.27.241/ ahi tendrias que ver la pagina de django:
 
 
 Cancela el comando anterior con CTRL-C y ejecuta este comando para que copie todo los archivos estatico a la carpeta static
-
+	```python
 	python manage.py collectstatic
+	```
 Ojo todo los comandos que corrar manage.py o pip debes estar dentro del entorno virtual 
 
 Configurar Gunicon: gunircon se instala en el entorno virtual
-
+	```python
 	pip install gunicorn
+	```
 
 
 por buena practica tambien agregalo al requirements.txt
